@@ -37,12 +37,18 @@ jobs:
         uses: anthropics/claude-code-action@main
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-sonnet-4-20250514
           direct_prompt: |
-            ${{ github.event_name == 'pull_request' && 'You are a senior product engineer.
-            Please provide a thorough review of this pull request.
-            Pay extra attention to coding standards, security practices,
-            test coverage, readability, maintainability, and performance.
+            ${{ github.event_name == 'pull_request' && 'You are a senior product engineer providing automated code review.
+            
+            🔍 **Automated Code Review**
+            
+            Please provide a thorough review of this pull request. Pay extra attention to:
+            - Code quality and best practices
+            - Potential bugs or edge cases
+            - Security implications
+            - Performance considerations
+            - Test coverage
+            - Documentation updates if needed
 
             Focus on:
             - Correctness & hidden bugs (edge cases, race conditions, off-by-one, etc.)
@@ -50,19 +56,11 @@ jobs:
             - Security vulnerabilities (injection, XSS, secrets exposure)
             - Readability & maintainability (naming, duplication, comments)
             - Test coverage gaps (suggest unit/integration tests)
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security implications
-            - Test coverage
-            - Documentation updates if needed
 
             Reply with:
-            - *One-sentence purpose summary* of the snippet.
-            - A **table** with columns **Severity (Critical/High/Medium/Low)**, **Line(s)**, **Issue**, **Recommendation**.
-            - Concrete code samples for any non-trivial fix.
-            - An overall quality score **/10** and the top 3 next steps.
+            - *One-sentence purpose summary* of the changes
+            - A **table** with columns **Severity (Critical/High/Medium/Low)**, **Line(s)**, **Issue**, **Recommendation**
+            - Concrete code samples for any non-trivial fix
+            - An overall quality score **/10** and the top 3 next steps
 
-            Provide constructive feedback with specific suggestions for improvement.
-            Use inline comments to highlight specific areas of concern.
-            Use <details> and <summary> md tags to show summary in comment and view details on click' || '' }}
+            Use <details> and <summary> tags to organize your response for better readability.' || '' }}
