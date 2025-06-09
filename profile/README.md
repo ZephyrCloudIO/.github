@@ -2,7 +2,7 @@
 
 **Helping you successfully release to production.**
 
-[🌐 Website](https://zephyr-cloud.io/) • [📚 Docs](https://docs.zephyr-cloud.io/) • [🧠 Blog](https://zephyr-cloud.io/blog) 💬 [Discord](https://discord.gg/pSxWRVayEu)
+[🌐 Website](https://zephyr-cloud.io/) • [📚 Docs](https://docs.zephyr-cloud.io/) • [🧠 Blog](https://zephyr-cloud.io/blog) • 💬 [Discord](https://discord.gg/pSxWRVayEu)
 
 ---
 
