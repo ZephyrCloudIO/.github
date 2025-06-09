@@ -2,7 +2,7 @@
 
 **Helping you successfully release to production.**
 
-[🌐 Website](https://zephyr-cloud.io/) • [📚 Docs](https://docs.zephyr-cloud.io/) • [🧠 Blog](https://zephyr-cloud.io/blog)
+[🌐 Website](https://zephyr-cloud.io/) • [📚 Docs](https://docs.zephyr-cloud.io/) • [🧠 Blog](https://zephyr-cloud.io/blog) 💬 [Discord](https://discord.gg/pSxWRVayEu)
 
 ---
 
@@ -32,6 +32,8 @@ By streamlining development with a micro-frontend orchestration platform, Zephyr
 ## 🤝 Join the Community
 
 We welcome contributors of all experience levels. Start by checking out [`zephyr-examples`](https://github.com/ZephyrCloudIO/zephyr-examples) to see how everything fits together.
+
+Feel free to join our [discord channel](https://discord.gg/pSxWRVayEu) too!
 
 ---
 
