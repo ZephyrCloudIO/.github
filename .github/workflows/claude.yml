@@ -18,27 +18,8 @@ jobs:
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
-      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
-      issues: read
-      id-token: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Run Claude Code
-        id: claude
-        uses: anthropics/claude-code-action@main
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-
-  code_review:
-    if: github.event_name == 'pull_request'
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude'))) ||
+      github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -58,7 +39,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           model: claude-sonnet-4-20250514
           direct_prompt: |
-            You are a senior product engineer.
+            ${{ github.event_name == 'pull_request' && 'You are a senior product engineer.
             Please provide a thorough review of this pull request.
             Pay extra attention to coding standards, security practices,
             test coverage, readability, maintainability, and performance.
@@ -84,4 +65,4 @@ jobs:
 
             Provide constructive feedback with specific suggestions for improvement.
             Use inline comments to highlight specific areas of concern.
-            Use <details> and <summary> md tags to show summary in comment and view details on click
+            Use <details> and <summary> md tags to show summary in comment and view details on click' || '' }}
