@@ -73,14 +73,16 @@ jobs:
           fi
           echo "Found $count Claude comments to delete"
           
-          echo "$ids" | while read -r id; do
-              [ -n "$id" ] && {
-                  echo "Removing issues/comments/ ID: $id"
-                  if ! gh api --method DELETE "/repos/$REPO/issues/comments/$id" --silent; then
-                      echo "Warning: Failed to delete comment ID: $id" >&2
-                  fi
-              }
-          done
+          if [ -n "$ids" ]; then
+              echo "$ids" | while read -r id; do
+                  [ -n "$id" ] && {
+                      echo "Removing issues/comments/ ID: $id"
+                      if ! gh api --method DELETE "/repos/$REPO/issues/comments/$id" --silent; then
+                          echo "Warning: Failed to delete comment ID: $id" >&2
+                      fi
+                  }
+              done
+          fi
           
           count2=0
           if [ -n "$ids2" ]; then
@@ -88,14 +90,16 @@ jobs:
           fi
           echo "Found $count2 Claude comments to delete"
           
-          echo "$ids2" | while read -r id; do
-              [ -n "$id" ] && {
-                  echo "Removing pulls/comments/ ID: $id"
-                  if ! gh api --method DELETE "/repos/$REPO/pulls/comments/$id" --silent; then
-                      echo "Warning: Failed to delete comment ID: $id" >&2
-                  fi
-              }
-          done
+          if [ -n "$ids2" ]; then
+              echo "$ids2" | while read -r id; do
+                  [ -n "$id" ] && {
+                      echo "Removing pulls/comments/ ID: $id"
+                      if ! gh api --method DELETE "/repos/$REPO/pulls/comments/$id" --silent; then
+                          echo "Warning: Failed to delete comment ID: $id" >&2
+                      fi
+                  }
+              done
+          fi
           
           echo "Script completed successfully"
           exit 0
