@@ -65,25 +65,40 @@ jobs:
           echo "Fetching comments from PR $PR_NUMBER in $REPO"
           ids=$(gh api "/repos/$REPO/issues/$PR_NUMBER/comments" --jq '.[] | select(.user.login | test("claude"; "i")) | .id')
           ids2=$(gh api "/repos/$REPO/pulls/$PR_NUMBER/comments" --jq '.[] | select(.user.login | test("claude"; "i")) | .id')
-          count=$(echo "$ids" | wc -l)
+          
+          # Count non-empty lines
+          count=0
+          if [ -n "$ids" ]; then
+              count=$(echo "$ids" | grep -c '^')
+          fi
           echo "Found $count Claude comments to delete"
-
+          
           echo "$ids" | while read -r id; do
               [ -n "$id" ] && {
                   echo "Removing issues/comments/ ID: $id"
-                  gh api --method DELETE "/repos/$REPO/issues/comments/$id" --silent
+                  if ! gh api --method DELETE "/repos/$REPO/issues/comments/$id" --silent; then
+                      echo "Warning: Failed to delete comment ID: $id" >&2
+                  fi
               }
           done
-
-          count2=$(echo "$ids2" | wc -l)
+          
+          count2=0
+          if [ -n "$ids2" ]; then
+              count2=$(echo "$ids2" | grep -c '^')
+          fi
           echo "Found $count2 Claude comments to delete"
-
+          
           echo "$ids2" | while read -r id; do
               [ -n "$id" ] && {
                   echo "Removing pulls/comments/ ID: $id"
-                  gh api --method DELETE "/repos/$REPO/pulls/comments/$id" --silent
+                  if ! gh api --method DELETE "/repos/$REPO/pulls/comments/$id" --silent; then
+                      echo "Warning: Failed to delete comment ID: $id" >&2
+                  fi
               }
           done
+          
+          echo "Script completed successfully"
+          exit 0
           
       - name: Run Claude Code
         id: claude
