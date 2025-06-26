@@ -44,7 +44,7 @@ jobs:
             echo "No existing Claude comment found"
             echo "comment_id=" >> $GITHUB_OUTPUT
           fi
-          
+
       - name: Run Claude Code
         id: claude
         uses: valorkin/claude-code-action@feat-limit-amount-of-claude-comments
@@ -52,7 +52,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           model: claude-sonnet-4-20250514
           comments_max: 2
-          allowed_tools: "mcp__github__get_pull_request_diff,mcp__github__create_issue_comment,mcp__github__update_issue_comment"
+          allowed_tools: 'mcp__github__get_pull_request_diff,mcp__github__create_issue_comment,mcp__github__update_issue_comment'
           comment_id: ${{ steps.find_comment.outputs.comment_id }}
           direct_prompt: |
             You are a senior product engineer.
@@ -80,12 +80,12 @@ jobs:
 
             Provide constructive feedback with specific suggestions for improvement.
             Use <details> and <summary> md tags to show summary in comment and view details on click.
-           
+
             Please review this PR and provide feedback as a single PR comment. Follow these steps:
 
             1. **Get diff information**: Use `mcp__github__get_pull_request_diff` to understand the code changes and line numbers
             2. **Create or update comment**: 
                - If a comment_id is provided, use `mcp__github__update_issue_comment` to update the existing comment
                - If no comment_id is provided, use `mcp__github__create_issue_comment` to create a new comment
-            
+
             Provide a comprehensive review in a single comment that covers all the important aspects of the PR. Include file paths and line numbers in your feedback table for easy reference.
