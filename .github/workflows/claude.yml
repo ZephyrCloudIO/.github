@@ -87,7 +87,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           model: claude-sonnet-4-20250514
-          sticky_comment: true
+          use_sticky_comment: true
           allowed_tools: |
             mcp__github__get_pull_request_diff,
             mcp__github__create_issue_comment,
@@ -151,7 +151,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           model: claude-sonnet-4-20250514
-          sticky_comment: true
+          use_sticky_comment: true
           allowed_tools: |
             mcp__github__create_pending_pull_request_review,
             mcp__github__add_pull_request_review_comment_to_pending_review,
