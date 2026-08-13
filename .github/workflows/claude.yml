@@ -45,7 +45,7 @@ jobs:
     outputs:
       enabled: ${{ steps.check.outputs.enabled }}
     steps:
-      - name: Checkout workflow manifest
+      - name: Checkout actions manifest
         uses: actions/checkout@v4
         with:
           repository: ZephyrCloudIO/.github
@@ -54,25 +54,37 @@ jobs:
 
       - name: Preflight yq availability
         run: |
+          set -euo pipefail
+
           if ! command -v yq >/dev/null 2>&1; then
-            echo "::error::yq is required to read the Claude manifest"
+            echo "::error::yq is required to read the actions manifest"
             exit 1
           fi
 
           yq --version
 
-      - name: Check Claude repository blacklist
+      - name: Check Claude repository skip list
         id: check
         env:
           REPOSITORY: ${{ github.repository }}
-          MANIFEST_PATH: workflow-manifest/.github/claude-manifest.yml
+          WORKFLOW_PATH: .github/workflows/claude.yml
+          MANIFEST_PATH: workflow-manifest/.github/actions-manifest.yml
         run: |
+          set -euo pipefail
+
           if [ ! -f "$MANIFEST_PATH" ]; then
-            echo "::error::Claude manifest not found at $MANIFEST_PATH"
+            echo "::error::Actions manifest not found at $MANIFEST_PATH"
             exit 1
           fi
 
-          if [ "$(yq -r '.blacklist // [] | contains([strenv(REPOSITORY)])' "$MANIFEST_PATH")" = "true" ]; then
+          skipped_repository="$(yq -r '
+            .actions[]?
+            | select(.workflow_path == strenv(WORKFLOW_PATH))
+            | .skipped_repositories[]?
+            | select(. == strenv(REPOSITORY))
+          ' "$MANIFEST_PATH")"
+
+          if [ -n "$skipped_repository" ]; then
             echo "Claude disabled for $REPOSITORY"
             echo "enabled=false" >> "$GITHUB_OUTPUT"
             exit 0
