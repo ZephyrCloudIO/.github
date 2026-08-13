@@ -38,12 +38,59 @@ on:
     types: [submitted]
 
 jobs:
+  claude_gate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      enabled: ${{ steps.check.outputs.enabled }}
+    steps:
+      - name: Checkout workflow manifest
+        uses: actions/checkout@v4
+        with:
+          repository: ZephyrCloudIO/.github
+          ref: ${{ github.repository == 'ZephyrCloudIO/.github' && github.sha || 'main' }}
+          path: workflow-manifest
+
+      - name: Preflight yq availability
+        run: |
+          if ! command -v yq >/dev/null 2>&1; then
+            echo "::error::yq is required to read the Claude manifest"
+            exit 1
+          fi
+
+          yq --version
+
+      - name: Check Claude repository blacklist
+        id: check
+        env:
+          REPOSITORY: ${{ github.repository }}
+          MANIFEST_PATH: workflow-manifest/.github/claude-manifest.yml
+        run: |
+          if [ ! -f "$MANIFEST_PATH" ]; then
+            echo "::error::Claude manifest not found at $MANIFEST_PATH"
+            exit 1
+          fi
+
+          if [ "$(yq -r '.blacklist // [] | contains([strenv(REPOSITORY)])' "$MANIFEST_PATH")" = "true" ]; then
+            echo "Claude disabled for $REPOSITORY"
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Claude enabled for $REPOSITORY"
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+
   claude:
+    needs: claude_gate
     if: |
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude') && !contains(github.event.comment.body, '@claude please review')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude') && !contains(github.event.comment.body, '@claude please review')) ||
-      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude') && !contains(github.event.review.body, '@claude please review')) ||
-      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+      needs.claude_gate.outputs.enabled == 'true' &&
+      (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude') && !contains(github.event.comment.body, '@claude please review')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude') && !contains(github.event.comment.body, '@claude please review')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude') && !contains(github.event.review.body, '@claude please review')) ||
+        (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -64,7 +111,8 @@ jobs:
 
 
   pr_review_summary:
-    if: github.event_name == 'pull_request'
+    needs: claude_gate
+    if: needs.claude_gate.outputs.enabled == 'true' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -125,9 +173,13 @@ jobs:
             Explicitely mention in header that writing `@claude please review` in the comment will trigger a full reviews.
 
   code_review:
+    needs: claude_gate
     if: |
-      (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude please review')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude please review'))
+      needs.claude_gate.outputs.enabled == 'true' &&
+      (
+        (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@claude please review')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude please review'))
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: read
