@@ -1,5 +1,1 @@
-actions:
-  - workflow_path: .github/workflows/claude.yml
-    skipped_repositories:
-      - ZephyrCloudIO/tap-render-contest
-      - ZephyrCloudIO/labor0
+actions: []
