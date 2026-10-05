@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/ZephyrCloudIO/.github/raw/main/profile/assets/zephyr-wordmark-light.svg">
-  <img alt="Zephyr Cloud" src="https://github.com/ZephyrCloudIO/.github/raw/main/profile/assets/zephyr-wordmark-dark.svg" width="260">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/zephyr-wordmark-light.svg">
+  <img alt="Zephyr Cloud" src="./assets/zephyr-wordmark-dark.svg" width="260">
 </picture>
 
 **Always deployed. Released when you're ready.**
@@ -29,30 +29,20 @@ npx create-zephyr-apps@latest
 # Add Zephyr to an existing app
 npx with-zephyr
 
-# Deploy a folder you've already built
-npx zephyr-cli deploy ./dist
-
 # Teach your coding agent (Claude Code, Cursor, Codex, …) to deploy with Zephyr
 npx skills add ZephyrCloudIO/skills
 ```
 
-**Bundlers and frameworks:** Vite, Rspack, Rsbuild, webpack, Rollup, Rolldown, Parcel, Astro, Nuxt, TanStack Start, Modern.js, Re.Pack and Metro (React Native), plus more [in the docs](https://docs.zephyr-cloud.io/).
+Guides, framework setup and API reference are at **[docs.zephyr-cloud.io](https://docs.zephyr-cloud.io/)**.
 
-**Deploy targets:** Zephyr Cloud (managed), Cloudflare, AWS, Fastly, Akamai, or several of them at once.
-
-### Repositories
-
-| Repo | What's in it |
-|---|---|
-| [**zephyr-packages**](https://github.com/ZephyrCloudIO/zephyr-packages) | Bundler plugins (`vite-plugin-zephyr`, `zephyr-rspack-plugin`, `zephyr-webpack-plugin`, …) and `create-zephyr-apps` |
-| [**zephyr-examples**](https://github.com/ZephyrCloudIO/zephyr-examples) | Reference apps for each supported bundler and framework |
-| [**skills**](https://github.com/ZephyrCloudIO/skills) | Agent Skills that teach coding agents to build and deploy on Zephyr |
-| [**zephyr-preview-environment-action**](https://github.com/ZephyrCloudIO/zephyr-preview-environment-action) | GitHub Action that creates preview environments for pull requests |
-| [**zephyr-documentation**](https://github.com/ZephyrCloudIO/zephyr-documentation) | Source for [docs.zephyr-cloud.io](https://docs.zephyr-cloud.io/). PRs welcome |
+- **[zephyr-packages](https://github.com/ZephyrCloudIO/zephyr-packages)**: the Zephyr plugins for your bundler
+- **[zephyr-examples](https://github.com/ZephyrCloudIO/zephyr-examples)**: example apps to start from
+- **[zephyr-preview-environment-action](https://github.com/ZephyrCloudIO/zephyr-preview-environment-action)**: a preview environment for every pull request
+- **[skills](https://github.com/ZephyrCloudIO/skills)**: teach your coding agent to deploy with Zephyr
 
 ## The AI Platform
 
-<img align="right" alt="The AI Platform" src="https://github.com/ZephyrCloudIO/.github/raw/main/profile/assets/tap-logomark-dark.svg" width="64">
+<img align="right" alt="The AI Platform" src="./assets/tap-logomark-dark.svg" width="64">
 
 [The AI Platform](https://theaiplatform.app/) is a desktop workspace for people and agents. It gives the whole org shared channels and context, routes each task to Claude, GPT or a local model, and tracks spend by person, team and feature. It runs against your repo, your machines and your keys.
 
