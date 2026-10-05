@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 415 404" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="415" height="404" rx="64" fill="#0F0F0F"/>
+  <g transform="translate(34 34)">
+    <path d="M207.59 144.654C155.957 161.411 131.72 184.695 118.749 196.911C161.658 186.367 186.863 198.593 235.906 180.044C284.949 161.495 305.165 129.226 317.547 93.4621C297.557 116.413 259.224 127.897 207.59 144.654Z" fill="url(#fav-dark-wing-upper)"/>
+    <path d="M205.693 68.8391C155.288 101.543 143.247 130.55 133.778 144.123C172.687 123.454 203.253 123.367 247.834 103.47C292.416 83.5733 324.233 37.8576 329.185 0C293.707 31.5648 256.099 36.1356 205.693 68.8391Z" fill="url(#fav-dark-wing-mid)"/>
+    <path d="M54.9464 74.2562C18.13 88.2211 5.56949 108.967 0 122.044C39.0787 99.1061 59.1784 101.89 67.8959 112.06C76.6133 122.231 80.6601 148.704 59.6431 203.835C38.6261 258.966 21.7841 297.491 21.7841 335.014C21.7841 335.014 44.5362 296.988 62.5765 266.114C80.6168 235.24 103.696 201.678 118.514 170.971C133.332 140.264 134.438 112.748 124.557 90.3756C155.649 86.0169 178.449 59.0777 182.078 48.9042C138.587 77.5857 91.7628 60.2914 54.9464 74.2562Z" fill="url(#fav-dark-crest)"/>
+  </g>
+  <defs>
+    <linearGradient id="fav-dark-wing-upper" x1="380.604" y1="107.05" x2="217.482" y2="188.87" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C7FD"/>
+      <stop offset="1" stop-color="#276BED"/>
+    </linearGradient>
+    <linearGradient id="fav-dark-wing-mid" x1="314.979" y1="80.6592" x2="155.515" y2="81.4941" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C7FD"/>
+      <stop offset="0.519231" stop-color="#276BED" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#62C7FD"/>
+    </linearGradient>
+    <linearGradient id="fav-dark-crest" x1="90.4746" y1="48.9042" x2="90.4746" y2="334.764" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#62C7FD"/>
+      <stop offset="1" stop-color="#276BED"/>
+    </linearGradient>
+  </defs>
+</svg>
