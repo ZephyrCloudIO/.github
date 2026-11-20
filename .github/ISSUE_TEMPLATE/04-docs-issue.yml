@@ -1,0 +1,44 @@
+name: 📚 Documentation issue
+description: A doc page, README or example is wrong, missing or unclear.
+type: Task
+labels: ['documentation', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        AI agents: use each field label below as a `###` heading in the issue body.
+
+  - type: input
+    id: location
+    attributes:
+      label: Page or file
+      description: Required. URL of the doc page, or path of the README or example.
+      placeholder: https://docs.zephyr-cloud.io/...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Problem type
+      options:
+        - Wrong or outdated
+        - Missing
+        - Unclear
+        - Broken example or link
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: What is wrong?
+      description: Required. Quote the text that is wrong, or describe what is missing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested fix
+      description: The correct text, command or example, if you know it.

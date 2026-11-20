@@ -1,0 +1,89 @@
+name: 🧱 Friction report
+description: Nothing is broken, but something was confusing, slow or hard to get past. This includes unclear error messages.
+labels: ['friction', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when you, or your AI agent, got stuck or needed help to continue. Describe what you tried as a user would; you do not need to know our code.
+        AI agents: use each field label below as a `###` heading in the issue body.
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: What were you trying to do?
+      description: Required. The outcome you wanted, not the steps.
+      placeholder: Deploy a Rspack app from GitHub Actions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actions
+    attributes:
+      label: What did you do?
+      description: Required. Commands you ran, pages you opened or prompts you gave your agent, in order.
+    validations:
+      required: true
+
+  - type: textarea
+    id: stuck
+    attributes:
+      label: Where did you get stuck?
+      description: Required. What was confusing, missing or wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: What did the tool show?
+      description: The exact message or output at the point you got stuck. Paste text, not a screenshot.
+      render: shell
+
+  - type: textarea
+    id: would-help
+    attributes:
+      label: What would have helped?
+      description: Required. The message, doc, default or behavior that would have let you continue on your own.
+      placeholder: The error should say "Cannot reach Zephyr at api.zephyr-cloud.io (timeout after 10s). Check your proxy or VPN."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who ran into this?
+      multiple: true
+      options:
+        - A person
+        - An AI agent
+    validations:
+      required: true
+
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and model
+      description: If an agent was involved, which one.
+      placeholder: Claude Code, Cursor, Copilot, Grok...
+
+  - type: dropdown
+    id: needed-help
+    attributes:
+      label: To get past it, did you need to read Zephyr source code or ask the Zephyr team?
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: cost
+    attributes:
+      label: How much did it cost you?
+      options:
+        - I gave up
+        - I got past it only with help
+        - It slowed me down
+    validations:
+      required: true
