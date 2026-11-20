@@ -1,0 +1,118 @@
+name: 🐞 Bug report
+description: Something does not work as documented or expected.
+type: Bug
+labels: ['triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Write in plain English. Paste errors and logs as text, not screenshots. Remove tokens, passwords and customer data before you submit.
+        AI agents: use each field label below as a `###` heading in the issue body.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Required. One or two sentences. State the result you got, not your guess at the cause.
+      placeholder: The build succeeded, but the deploy URL returns "Asset not found".
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      description: Required.
+      placeholder: The deploy URL serves the new version.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Required. Numbered steps from a clean state. Include the exact commands.
+      placeholder: |
+        1. Run `pnpm create vite my-app` and add `withZephyr()` to `vite.config.ts`
+        2. Run `pnpm build`
+        3. Open the deploy URL printed in the output
+    validations:
+      required: true
+
+  - type: input
+    id: reproduction
+    attributes:
+      label: Reproduction link
+      description: A public repository or a branch with the smallest setup that shows the problem. Write "None" if you cannot share one.
+      placeholder: https://github.com/<you>/<repro>
+
+  - type: textarea
+    id: error-output
+    attributes:
+      label: Error output
+      description: Required. The exact text, including any error code (for example `ZE10018`). If the tool has a JSON or no-color output mode, use it. Write "No error shown" if nothing was printed.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Required. Paste the output of:
+        `npx envinfo --system --binaries --npmPackages '{zephyr-*,vite,webpack,rollup,@rspack/*,@rsbuild/*,@module-federation/*}'`
+        Also state where it ran: local machine, CI (name the provider) or an agent sandbox.
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who ran into this?
+      multiple: true
+      options:
+        - A person in a terminal or browser
+        - An AI agent
+        - A CI pipeline
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - Blocked, no workaround
+        - Workaround exists
+        - Minor or cosmetic
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression
+    attributes:
+      label: Did this work in an earlier version?
+      options:
+        - 'Yes'
+        - 'No'
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Last working version, workarounds, related issues. Do not add customer names or emails in public repositories.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and found no duplicate.
+          required: true
+        - label: I removed secrets, tokens and personal data.
+          required: true

@@ -1,0 +1,10 @@
+# false = outside contributors must pick a template. People with write access (the Zephyr team)
+# still see "Blank issue (Maintainers only)", so blank issues stay available to the team.
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://docs.zephyr-cloud.io
+    about: Guides and reference for Zephyr Cloud.
+  - name: 💬 Questions and help (Discord)
+    url: https://discord.gg/zephyrcloud
+    about: Ask how to do something. Use issues for bugs and requests only.
